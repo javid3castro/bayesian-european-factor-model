@@ -189,4 +189,3 @@ Wolff, D. (2024). Stock picking with machine learning. Journal of Forecasting, 4
 ---
 
 This is an independent research project and does not constitute investment advice.
-README.md…]()
