@@ -116,8 +116,9 @@ bayesian-european-factor-model/
     RESEARCH_LOG.md
     src/
         v3_production_model.py
+        point_in_time_investigation.py
     paper/
-        bayesian_european_equity_paper.html
+        paper.md
     figures/
         fig1_factor_distributions.png
         fig2_factor_vs_outcome.png
@@ -128,7 +129,9 @@ bayesian-european-factor-model/
         fig7_validation_metrics.png
 ```
 
-The script in src/ is self-contained and reproduces the full pipeline end to end, from data download through posterior estimation, walk-forward validation, and portfolio construction. It is designed to be run in Google Colab without local environment configuration, though it will run in any standard Python environment with the dependencies listed below installed.
+The script `src/v3_production_model.py` is self-contained and reproduces the full pipeline end to end, from data download through posterior estimation, walk-forward validation, and portfolio construction, using the non-point-in-time fundamental snapshot described in the Methodology section. It is designed to be run in Google Colab without local environment configuration, though it will run in any standard Python environment with the dependencies listed below installed.
+
+The script `src/point_in_time_investigation.py` is a companion diagnostic script that reproduces the finding described in the Data Integrity Investigation section below. It depends on Blocks 1 to 3 of `v3_production_model.py` having already been executed in the same session, and prints a coverage report rather than producing trained model output, since the resulting sample size was found to be too small for reliable walk-forward validation.
 
 ---
 
@@ -140,6 +143,8 @@ python src/v3_production_model.py
 ```
 
 Total runtime is approximately 15 minutes, dominated by data download and the repeated MCMC estimation across walk-forward folds.
+
+To reproduce the point-in-time data integrity finding, run Blocks 1 to 3 of `v3_production_model.py` first (so that `UNIVERSE`, `stock_prices`, `bench_prices`, and related objects exist in the session), then run `src/point_in_time_investigation.py` in the same session. This prints a coverage report rather than training a model, since the resulting point-in-time sample was found to be too small for reliable walk-forward validation.
 
 ---
 
@@ -184,3 +189,4 @@ Wolff, D. (2024). Stock picking with machine learning. Journal of Forecasting, 4
 ---
 
 This is an independent research project and does not constitute investment advice.
+README.md…]()
